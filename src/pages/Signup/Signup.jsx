@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
 
 const Signup = () => {
   return (
@@ -14,7 +14,7 @@ const Signup = () => {
             <input
               id="name"
               type="text"
-              className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-blue-500"
+              className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
               placeholder="Your Name"
               required
             />
@@ -26,7 +26,7 @@ const Signup = () => {
             <input
               id="email"
               type="email"
-              className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-blue-500"
+              className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
               placeholder="Enter Your Email"
               required
             />
@@ -38,7 +38,7 @@ const Signup = () => {
             <input
               id="password"
               type="password"
-              className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-blue-500"
+              className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
               placeholder="Enter Your Password"
               required
             />
@@ -50,14 +50,15 @@ const Signup = () => {
             Sign Up
           </button>
         </form>
-        <Link to={'/'}>
-        <p className="text-sm text-center mt-4">
-          Already have an account? Signin
-        </p>
+        <Link to={"/"}>
+          <p className="text-md text-center mt-4">
+            Already have an account?{" "}
+            <span className="text-amber-500">Signin</span>
+          </p>
         </Link>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Signup
+export default Signup;

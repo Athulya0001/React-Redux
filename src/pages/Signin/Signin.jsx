@@ -14,7 +14,7 @@ const Signin = () => {
             <input
               id="email"
               type="email"
-              className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-blue-500"
+              className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
               placeholder="Enter Your Email"
               required
             />
@@ -26,7 +26,7 @@ const Signin = () => {
             <input
               id="password"
               type="password"
-              className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-blue-500"
+              className="w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none"
               placeholder="Enter Your Passwor"
               required
             />
@@ -39,8 +39,8 @@ const Signin = () => {
           </button>
         </form>
         <Link to={'/signup'}>
-          <p className="text-sm text-center mt-4">
-            Don't have an account? Signup
+          <p className="text-md text-center mt-4">
+            Don't have an account? <span className='text-amber-500'>Signup</span>
           </p>
         </Link>
       </div>
