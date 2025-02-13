@@ -1,60 +1,64 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const currentlyActiveUser =
-  JSON.parse(localStorage.getItem("currentlyActiveUser")) || null;
-
 const initialState = {
-  user: JSON.parse(localStorage.getItem("user")) || [],
-  currentUser: currentlyActiveUser,
-  isAuthenticated: currentlyActiveUser ? true : false,
+  users: JSON.parse(localStorage.getItem("users")) || [],
+  currentUser: localStorage.getItem("currentlyActiveUser") || null,
+  isAuthenticated:false
 };
 
-  export const authSlice = createSlice({
-    name: "auth",
-    initialState,
-    reducers: {
-      registerUser: (state, action) => {
-        const existingUser = state.users.find(
-          (user) => user.email === action.payload.email
+export const authSlice = createSlice({
+  name: "auth",
+  initialState,
+  reducers: {
+    registerUser: (state, action) => {
+      const existingUser = state.users.find(
+        (user) => user.email === action.payload.email
+      );
+      if (!existingUser) {
+        console.log("enterd function clll");
+        state.users = [...state.users, action.payload];
+        console.log("state user", state.users);
+        localStorage.setItem("users", JSON.stringify(state.users));
+        localStorage.setItem(
+          "currentlyActiveUser",
+          JSON.stringify(action.payload)
         );
-        if (!existingUser) {
-          localStorage.setItem("users", JSON.stringify(action.payload));
-        }
-        console.log(state.users, "action from signup");
-      },
-      login: (state, action) => {
-        const existingUser = state.users.find(
-            (user) => user.email === action.payload.email
-          );
+      }else{
 
-        if(existingUser){
-            const isPasswordCorrect = state.users.find((user)=>user.password === action.payload.password);
-
-            if(isPasswordCorrect){
-              state.isAuthenticated=true;
-              const authenticatedUser =  state.users.find((user) => {
-                return user.email === action.payload.email;
-               });
-               localStorage.setItem(
-                "currentlyActiveUser",
-                JSON.stringify(authenticatedUser)
-              );
-            }else{
-              console.log('password incorrect')
-            }
-        }else{
-          console.log('email incorrect')
-        }
-      },
-      logout: (state) => {
-        state.user = [];
-        state.isAuthenticated = false;
-        localStorage.removeItem("currentlyActiveUser");
-      },
-  
+        alert('already a user registered with this email')
+      }
     },
-  });
-  
-  export const { registerUser, login, logout } = authSlice.actions;
-  export default authSlice.reducer;
-  
+    login: (state, action) => {
+      const existingUser = state.users.find(
+        (user) => user.email === action.payload.email
+      );
+
+      if (existingUser) {
+        const isPasswordCorrect = state.users.find(
+          (user) => user.password === action.payload.password
+        );
+
+        if (isPasswordCorrect) {
+          const authenticatedUser = state.users.find((user) => {
+            return user.email === action.payload.email;
+          });
+          localStorage.setItem(
+            "currentlyActiveUser",
+            JSON.stringify(authenticatedUser)
+          );
+        } else {
+          console.log("password incorrect");
+        }
+      } else {
+        console.log("email incorrect");
+      }
+    },
+    logout: (state) => {
+      state.isAuthenticated = false;
+      localStorage.removeItem("currentlyActiveUser");
+    },
+  },
+});
+
+export const { registerUser, login, logout } = authSlice.actions;
+export default authSlice.reducer;

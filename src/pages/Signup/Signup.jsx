@@ -1,25 +1,35 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { registerUser } from "../../app/Redux/authSlice";
 
 const Signup = () => {
-
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState([]);
+  const [user, setUser] = useState();
+
+
+  useEffect(() => {
+        const currentUser=localStorage.getItem('currentlyActiveUser')
+        setUser(currentUser)
+        if(user) {
+          navigate('/')
+        }
+      },[user]);
 
   const handleChange = (event) => {
-  setFormData({
-    ...formData,[event.target.name]:event.target.value,
-  });
-  }
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.value,
+    });
+  };
 
-  const handleSubmit=(event)=>{
-    event.preventDefault()
+  const handleSubmit = (event) => {
+    event.preventDefault();
     dispatch(registerUser(formData));
-    console.log(formData, "form")
-  }
-
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
