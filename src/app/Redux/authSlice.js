@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   users: JSON.parse(localStorage.getItem("users")) || [],
-  currentUser: localStorage.getItem("currentlyActiveUser") || null,
+  currentUser: JSON.parse(localStorage.getItem("currentlyActiveUser")) || null,
   isAuthenticated:false
 };
 

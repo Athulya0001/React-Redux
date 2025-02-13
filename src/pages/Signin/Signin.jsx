@@ -1,12 +1,22 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { login } from '../../app/Redux/authSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Signin = () => {
 
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   const [formData, setFormData] = useState([]);
+
+  const currentUser = useSelector((state) => state.auth.currentUser);
+  
+    useEffect(() => {
+      if (currentUser) {
+        navigate("/");
+      }
+    }, [currentUser, navigate]);
+
 
 
   const handleChange = (event) => {
@@ -61,7 +71,7 @@ const Signin = () => {
             Sign In
           </button>
         </form>
-        <Link to={'/signup'}>
+        <Link to={'/register'}>
           <p className="text-md text-center mt-4">
             Don't have an account? <span className='text-amber-500'>Signup</span>
           </p>

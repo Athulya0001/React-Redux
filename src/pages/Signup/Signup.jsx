@@ -8,16 +8,24 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState([]);
-  const [user, setUser] = useState();
 
+  const currentUser = useSelector((state) => state.auth.currentUser);
 
   useEffect(() => {
-        const currentUser=localStorage.getItem('currentlyActiveUser')
-        setUser(currentUser)
-        if(user) {
-          navigate('/')
-        }
-      },[user]);
+    if (currentUser) {
+      navigate("/");
+    }
+  }, [currentUser, navigate]);
+
+  // const [user, setUser] = useState();
+
+  // useEffect(() => {
+  //   const currentUser=localStorage.getItem('currentlyActiveUser')
+  //   setUser(currentUser)
+  //   if (user) {
+  //     navigate('/')
+  //   }
+  // }, [user]);
 
   const handleChange = (event) => {
     setFormData({
