@@ -9,13 +9,27 @@ const Signin = () => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState([]);
 
-  const currentUser = useSelector((state) => state.auth.currentUser);
+    const [user, setUser] = useState();
+   
+     useEffect(() => {
+       handleUser()
+     }, [user]);
+   
+     const handleUser = () =>{
+       const currentUser=JSON.parse(localStorage.getItem('currentlyActiveUser'))
+       setUser(currentUser)
+       if (user) {
+         navigate('/')
+       }
+     }
+
+  // const currentUser = useSelector((state) => state.auth.currentUser);
   
-    useEffect(() => {
-      if (currentUser) {
-        navigate("/");
-      }
-    }, [currentUser, navigate]);
+  //   useEffect(() => {
+  //     if (currentUser) {
+  //       navigate("/");
+  //     }
+  //   }, [currentUser, navigate]);
 
 
 

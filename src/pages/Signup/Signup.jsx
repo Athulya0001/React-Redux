@@ -9,23 +9,27 @@ const Signup = () => {
 
   const [formData, setFormData] = useState([]);
 
-  const currentUser = useSelector((state) => state.auth.currentUser);
-
-  useEffect(() => {
-    if (currentUser) {
-      navigate("/");
-    }
-  }, [currentUser, navigate]);
-
-  // const [user, setUser] = useState();
+  // const currentUser = useSelector((state) => state.auth.currentUser);
 
   // useEffect(() => {
-  //   const currentUser=localStorage.getItem('currentlyActiveUser')
-  //   setUser(currentUser)
-  //   if (user) {
-  //     navigate('/')
+  //   if (currentUser) {
+  //     navigate("/");
   //   }
-  // }, [user]);
+  // }, [currentUser, navigate]);
+
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    handleUser()
+  }, [user]);
+
+  const handleUser = () =>{
+    const currentUser=JSON.parse(localStorage.getItem('currentlyActiveUser'))
+    setUser(currentUser)
+    if (user) {
+      navigate('/')
+    }
+  }
 
   const handleChange = (event) => {
     setFormData({
